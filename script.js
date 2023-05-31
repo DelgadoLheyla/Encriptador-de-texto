@@ -20,16 +20,19 @@ let btnCopiar = document.getElementById("Copiar");
 
 btnEncriptador.onclick=function(){
     if (!isEncriptado){
-        let textoIngresado =textArea.value;        
-        if (patronValidacion.test(textoIngresado)){
-            const textoEncriptado = encriptador(textoIngresado)
-            mensaje.value = textoEncriptado
-            textArea.value = "";
-            mensaje.style.backgroundImage = "none";
+        let textoIngresado =textArea.value;  
+        if (textoIngresado !== ""){
+            if (patronValidacion.test(textoIngresado)){
+                const textoEncriptado = encriptador(textoIngresado)
+                mensaje.value = textoEncriptado
+                textArea.value = "";
+                mensaje.style.backgroundImage = "none";
+            }else{
+                swal("El texto ingresado contiene caracteres no válidos", "Solo se permiten letras minúsculas sin acentos.","warning")
+            }
         }else{
-            swal("El texto ingresado contiene caracteres no válidos", "Solo se permiten letras minúsculas sin acentos.","warning")
-        }
-
+            swal("Ingrese texto, por favor!")
+        }   
     }else{
         swal("El texto está encriptado", "si quieres visualizar el mensaje debe desencriptar","warning")
     }
@@ -45,20 +48,25 @@ btnDesencriptador.onclick=function(){
             break;
         }
     }
-    if(isEncriptado || textoModificado===true){
+    if(textoIngresado !== ""){
+        if(isEncriptado || textoModificado===true){
         
-        if (patronValidacion.test(textoIngresado)){
-            const textoDesencriptado = desencriptador(textoIngresado);
-            mensaje.value = textoDesencriptado;
-            textArea.value = "";
-            mensaje.style.backgroundImage = "none";
+            if (patronValidacion.test(textoIngresado)){
+                const textoDesencriptado = desencriptador(textoIngresado);
+                mensaje.value = textoDesencriptado;
+                textArea.value = "";
+                mensaje.style.backgroundImage = "none";
+            }else{
+                swal("El texto ingresado contiene caracteres no válidos", "Solo se permiten letras minúsculas sin acentos.","warning")
+            } 
+    
         }else{
-            swal("El texto ingresado contiene caracteres no válidos", "Solo se permiten letras minúsculas sin acentos.","warning")
-        } 
-
+            swal("El texto no está Encriptado", "seleccione el botón ENCRIPTAR !","warning")
+        }
     }else{
-        swal("El texto no está Encriptado", "seleccione el botón ENCRIPTAR !","warning")
+        swal("Ingrese texto, por favor!")
     }
+
 
 }
 
